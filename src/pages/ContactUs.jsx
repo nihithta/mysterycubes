@@ -5,8 +5,6 @@ import Helmet from '../components/Helmet/Helmet';
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
 import '../styles/aboutus.css';
 import {toast} from 'react-toastify';
-import { Link, useNavigate } from "react-router-dom";
-
 
 const ContactUs = () => {
   useEffect(() => {
@@ -28,19 +26,18 @@ const ContactUs = () => {
       <div class="details mt-5 mb-5">
             
             <h2 className="h23">GET IN TOUCH</h2>
-            <h3 className="h21">Head office</h3>
             <div>
                 <div className="divv">
                 <i class="ri-map-pin-2-line"></i>
-                    <p> Hyderabad, India</p>
+                    <p> Candeur 40, Miyapur, Hyderabad, India</p>
                 </div>
                 <div className="divv">
                 <i class="ri-mail-line"></i>
-                    <p>contact@aandmfashion.com</p>
+                    <p>mysterycubes.in@gmail.com</p>
                 </div>
                 <div className="divv">
                 <i class="ri-phone-line"></i>
-                    <p>+91 93464 01198</p>
+                    <p>+91-7330962093, +91-9063803609, +91-9030370431</p>
                 </div>
                 
             </div>

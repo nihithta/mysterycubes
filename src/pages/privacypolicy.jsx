@@ -2,7 +2,6 @@ import CommonSection from "../components/UI/CommonSection";
 import Helmet from '../components/Helmet/Helmet';
 import '../styles/aboutus.css'
 import React, {useEffect} from 'react'
-import { Container, Row, Col } from 'reactstrap'
 
 const PrivacyPolicy = () => {
   useEffect(() => {
@@ -14,7 +13,7 @@ const PrivacyPolicy = () => {
   <CommonSection title='Privacy-Policy'/>
   
   <section className="pp justify-content-space-between mb-5 mt-5">
-    <p>At A&M, we are committed to protecting the privacy and security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or engage with our services. By accessing or using our website, you consent to the practices described in this Privacy Policy.
+    <p>At MysteryCubes, we are committed to protecting the privacy and security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or engage with our services. By accessing or using our website, you consent to the practices described in this Privacy Policy.
 
 </p>
     <h4 >1.Information We Collect</h4>

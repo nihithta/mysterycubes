@@ -1,6 +1,3 @@
-
-
-
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore'
@@ -12,14 +9,13 @@ import { getAnalytics } from "firebase/analytics";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB6Lofu3yjgr8rYizBvo8cOP9uIWtUSYGA",
-  authDomain: "am-fashion-23ea1.firebaseapp.com",
-  databaseURL: "https://am-fashion-23ea1-default-rtdb.firebaseio.com",
-  projectId: "am-fashion-23ea1",
-  storageBucket: "am-fashion-23ea1.appspot.com",
-  messagingSenderId: "714025738859",
-  appId: "1:714025738859:web:63cc3d91628180044ec72e",
-  measurementId: "G-MS5B0EW0Q1"
+  apiKey: "AIzaSyCSrysV4EpTlvDZi5KvWG3wU_p6A0JDAV0",
+  authDomain: "mysterycubes.firebaseapp.com",
+  projectId: "mysterycubes",
+  storageBucket: "mysterycubes.firebasestorage.app",
+  messagingSenderId: "792180880647",
+  appId: "1:792180880647:web:f2ece4488ae9a90250c1a2",
+  measurementId: "G-FZ00Y4YG2M"
 };
 
 

@@ -6,10 +6,6 @@ import "../styles/shop.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase.config";
 import ProductsList from "../components/UI/ProductsList";
-import Clock from "../components/UI/Clock";
-import { Link } from "react-router-dom";
-import timer from "../assets/images/timer.png";
-import { motion } from "framer-motion";
 
 const Shop = () => {
   const [productsData, setProductsData] = useState([]);
@@ -125,15 +121,7 @@ const Shop = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const subCategoryOptions = {
-    Saree: ['Cotton', 'Georgette', 'Banarasi', 'Organza', 'Chiffon', 'Silk', 'Ready to wear','Net','Rayon','Silk'],
-    'Unstitched Dress Material': ['Pure Cotton', 'Pure Lawn', 'Georgette', 'Organza', 'Silk','Net','Rayon','Silk'],
-    'Stitched Dress': ['Cotton', 'Georgette', 'Organza','Net','Rayon','Silk'],
-    'Readymade kurti': ['Straight Shirt', 'Anarkali','Rayon','Silk'],
-    Gowns: ['Semi-stitched', 'Ready-made','Net','Rayon','Silk'],
-    Sharara: ['Semi-stitched', 'Ready-made','Net','Rayon','Silk'],
-    Lehangas: ['Bridemaid', 'Bridal','Net','Rayon','Silk'],
-  };
+  const subCategoryOptions = {};
 
 
   
@@ -167,15 +155,13 @@ const Shop = () => {
             <div className="filter__widget">
                 <select value={selectedCategory} onChange={handleFilter}>
                   <option value="">Filter By Category</option>
-                  <option value="Saree">Saree</option>
-                  <option value="Unstitched Dress Material">Unstitched Dress Material</option>
-                  <option value="Stitched Dress">Stitched Dress</option>
-                  <option value="Readymade kurti">Readymade Kurti</option>
-                  <option value="Gowns">Gown</option>
-                  <option value="Sharara">Sharara</option>
-                  <option value="Lehangas">Lehangas</option>
+                  <option value="boxes">Mystery Boxes</option>
+                  <option value="hoodies">Hoodies</option>
+                  <option value="tees">Printed Tees</option>
+                  <option value="f1merch">F1 Merch</option>
                 </select>
               </div>
+              <br></br>
             
               {selectedCategory && (
                 <div className="filter__widget">

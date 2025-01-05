@@ -5,7 +5,7 @@ import './header.css';
 
 import {motion} from 'framer-motion'
 
-import logo from "../../assets/images/eco-logo.png"
+import logo from "../../assets/images/eco-logo.PNG"
 import userIcon from '../../assets/images/account-circle-line.png'
 
 import { Container, Row } from "reactstrap";

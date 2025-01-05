@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import './footer.css'
-import logo from "../../assets/images/eco-logo.png"
+import logo from "../../assets/images/eco-logo.PNG"
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import {Link} from "react-router-dom";
 
@@ -28,27 +28,19 @@ const Footer = () => {
             <h4 className="quick__links-title">Top Categories</h4>
             <ListGroup className="mb-3">
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/saree'>Saree</Link>
+                <Link to='/boxes'>Mystery Boxes</Link>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/unstitched'>Dress Material</Link>
+                <Link to='/hoodies'>Hoodies</Link>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/stitched'>Ready Made</Link>
+                <Link to='/tees'>Printed Tees</Link>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/sharara'>Sharara</Link>
-              </ListGroupItem>
-
-              <ListGroupItem className="ps-0 border-0">
-                <Link to='/lehanga'>Bridal</Link>
-              </ListGroupItem>
-
-              <ListGroupItem className="ps-0 border-0">
-                <Link to='/gown'>Gowns</Link>
+                <Link to='/f1'>F1 Merch</Link>
               </ListGroupItem>
             </ListGroup>
           </div>
@@ -89,17 +81,17 @@ const Footer = () => {
             <ListGroup className="mb-3">
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
                 <span><i class="ri-map-pin-line"></i></span>
-                <p> Malakpet, Hyderabad, India (500036)</p>
+                <p> Miyapur, Hyderabad, India (500049)</p>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
               <span><i class="ri-phone-line"></i></span>
-                <p>+91-9346401198</p>
+                <p>+91-7330962093, +91-9063803609</p>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
               <span><i class="ri-mail-line"></i></span>
-                <p>contact@aandmfashion.com</p>
+                <p>mysterycubes.in@gmail.com</p>
               </ListGroupItem>
 
               
@@ -131,8 +123,8 @@ const Footer = () => {
 
 
         <Col lg='12'>
-          <p className="footer__copyright">a&m <i class="ri-copyright-line"></i> 2022- {year}. All rights reserved. </p>
-          <p className="footer__text mt-4">A&M is your destination for curated fashion that celebrates individuality. With a focus on quality and style, we offer a carefully selected collection of garments that encompass elegance, sophistication, and modern trends. Our diverse range ensures there's something for every taste and occasion. Join us in embracing the art of self-expression through fashion at A&M.</p>
+          <p className="footer__copyright">MysteryCubes <i class="ri-copyright-line"></i> 2025. All rights reserved. </p>
+          <p className="footer__text mt-4">Mystery Cubes is the brainchild of a bunch of 21-year-old "chill guys" from Hyderabad who were bored and decided to do something cool. We’re all about fun, surprises, and good vibes—whether it’s our mystery boxes, hoodies, tees, or F1 merch. It’s like a treasure hunt but from the comfort of your couch. If you’re into chill, unique stuff and love a good surprise, Mystery Cubes is where it’s at.</p>
 
         </Col>
       </Row>

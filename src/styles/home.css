@@ -9,6 +9,10 @@
     align-items: flex-start;   
 }
 
+.hero_img {
+    border-radius: 20px;
+  }
+
 .hero__section h2{
     color: var(--primary-color);
     font-size: 4.5rem;

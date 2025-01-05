@@ -90,7 +90,7 @@ const Home = () => {
             </Col>
 
             <Col lg="6" md="6">
-              <div className="hero__img">
+              <div className="hero_img">
                 <img src="/logo_final.jpeg" alt="" />
               </div>
             </Col>
@@ -208,14 +208,14 @@ const Home = () => {
             </Col>
             
             <Col lg="6" md="12" className="text-end counter__img">
-              <img src={timer} alt="" />
+              <img src="/reg3.webp" alt="" />
             </Col></div>
             
           </Row>
         </Container>
       </section>
 
-      <section className="best__sales">
+      {/*<section className="best__sales">
         <Container>
           <Row>
             <Col lg="12" className="text-center">
@@ -228,7 +228,7 @@ const Home = () => {
             )}
           </Row>
         </Container>
-      </section>
+      </section>*/}
       
     </Helmet>
   );
