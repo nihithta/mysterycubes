@@ -192,9 +192,9 @@ const Home = () => {
           <Row>
             <div className="timer-div"><Col lg="6" md="12" className="count__down-col">
               <div className="clock_top-content">
-                <h3 className="text-black fs-6 mb-2">Limited Offer</h3>
+                <h3 className="text-black fs-6 mb-2">Inaugural Offer</h3>
                 <h3 className="text-black fs-3 mb-2 per">
-                  50% off on all products
+                  80% off on Mystery Boxes!
                 </h3>
               </div>
               <Clock />

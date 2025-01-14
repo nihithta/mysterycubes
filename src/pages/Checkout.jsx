@@ -12,14 +12,27 @@ import 'react-phone-number-input/style.css';
 import { auth } from '../firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getMessaging, getToken, sendMessage } from 'firebase/messaging';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc} from 'firebase/firestore';
 
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dx3cztk0k/image/upload';
+const UPLOAD_PRESET = 'payment_ssupload';
 
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
 
 const Checkout = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -28,118 +41,110 @@ const Checkout = () => {
   const [zipCode, setZipCode] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [phone, setPhone] = useState('');
+  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
-  const [show, setShow] = useState(false);
-  const adminPhoneNumber = 'whatsapp:+919346401198'; 
-
-  const delfee = Math.floor((totalAmount * 18) / 100);
-  const taxes = Math.floor(totalAmount * (12 / 100) - totalAmount * (8 / 100));
-
-  // State to hold the user ID
+  const DELIVERY_FEE = 59;
   const [userId, setUserId] = useState(null);
 
-  // Effect to check the authentication state on component mount
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, update the user ID state with the current user's UID
-        setUserId(user.uid);
-      } else {
-        // User is not signed in or signed out, reset the user ID state
-        setUserId(null);
-      }
+      if (user) setUserId(user.uid);
+      else setUserId(null);
     });
-
-    // Clean up the subscription on unmount
     return () => unsubscribe();
   }, []);
 
-  
+  const taxes = Math.floor(totalAmount * 0.12 - totalAmount * 0.08);
+  const finalAmount = totalAmount + DELIVERY_FEE;
+
+  const handleScreenshotUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size <= 1024 * 1024) setPaymentScreenshot(file);
+    else toast.error('Image size should be less than 1MB');
+  };
+
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', UPLOAD_PRESET);
+
+    try {
+      const response = await fetch(CLOUDINARY_URL, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      return data.secure_url; // URL of the uploaded image
+    } catch (error) {
+      console.error('Error uploading to Cloudinary:', error);
+      throw new Error('Image upload failed');
+    }
+  };
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+    if (!paymentMethod || phone.length !== 13 || name.length < 3 || !/^\d{6}$/.test(zipCode)) {
+      toast.error('Please fill all required fields correctly.');
+      return;
+    }
 
     try {
-      if (!paymentMethod) {
-        toast.error('Please select a payment method');
-        return;
-      }
-
-      if (phone.length !== 13) {
-        toast.error('Phone number should be 10 digits long');
-        return;
-      }
-
-      if (name.length < 3) {
-        toast.error('Name should have a minimum of 3 characters');
-        return;
-      }
-
-      if (!/^\d{6}$/.test(zipCode)) {
-        toast.error('Zip code should be a 6-digit number');
-        return;
-      }
-
       setLoading(true);
 
-      if (paymentMethod === 'cod') {
-        if (!userId) {
-          toast.error('User not authenticated. Please log in first.');
-          setLoading(false);
-          return;
-        }
-
-        const ordersRef = collection(db, 'users', userId, 'orders');
-        const ordersRef2 = collection(db, 'orders');
-        const orderData = {
-          name: name,
-          email: email,
-          phone: phone,
-          address: address,
-          city: city,
-          state: state,
-          zipCode: zipCode,
-          paymentMethod: paymentMethod,
-          items: cartItems,
-          totalAmount: totalAmount,
-          orderDate: new Date().toLocaleString(),
-        };
-
-      
- 
-       //notify admin via notification here
-        
-        const docRef = await addDoc(ordersRef, orderData);
-        const docRef2 = await addDoc(ordersRef2, orderData);
-
-        
-
-        toast.success('Order placed successfully');
-        dispatch(cartActions.clearCart());
-
-        navigate('/orderplaced', {
-          state: { orderId: docRef.id, orderData, cartItems, totalAmount },
-          state: { orderId: docRef2.id, orderData, cartItems, totalAmount },
-        });
-      } else if (paymentMethod === 'online') {
-        navigate('/payment');
+      let screenshotUrl = null;
+      if (paymentMethod === 'qr' && paymentScreenshot) {
+        screenshotUrl = await uploadToCloudinary(paymentScreenshot);
       }
 
-      setLoading(false);
+      const orderData = {
+        name,
+        email,
+        phone,
+        address,
+        city,
+        state,
+        zipCode,
+        paymentMethod,
+        items: cartItems,
+        totalAmount: finalAmount,
+        orderDate: new Date().toLocaleString(),
+        userId,
+        orderStatus: 'pending',
+        paymentStatus: paymentMethod === 'cod' ? 'pending' : 'screenshot_uploaded',
+        paymentScreenshot: screenshotUrl,
+        deliveryFee: DELIVERY_FEE,
+        taxes,
+        subtotal: totalAmount,
+        createdAt: new Date(),
+      };
+
+      const ordersRef = collection(db, 'users', userId, 'orders');
+      const userOrderRef = await addDoc(ordersRef, orderData);
+
+      await setDoc(doc(db, 'orders', userOrderRef.id), {
+        ...orderData,
+        orderId: userOrderRef.id,
+      });
+
+      toast.success('Order placed successfully');
+      dispatch(cartActions.clearCart());
+      navigate('/orderplaced', { state: { orderId: userOrderRef.id, orderData } });
     } catch (error) {
+      console.error('Error placing order:', error);
+      toast.error('Order placement failed. Please try again.');
+    } finally {
       setLoading(false);
-      toast.error('Error placing order');
     }
   };
+  
 
   return (
     <section>
       <Container>
         <Row>
-          
           <Col lg="8">
             <h4 className="mb-3">Delivery Details</h4>
             <Form className="billing__form" onSubmit={handlePlaceOrder}>
@@ -179,33 +184,39 @@ const Checkout = () => {
                 <label>Zip Code</label>
                 <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
               </FormGroup>
+
               <h4 className="mb-3">Choose Payment Method</h4>
               <FormGroup>
                 <label>
                   <input
                     type="checkbox"
-                    checked={paymentMethod === 'cod'}
-                    onChange={() => setPaymentMethod('cod')}
+                    checked={paymentMethod === 'qr'}
+                    onChange={() => setPaymentMethod('qr')}
                   />
-                  (COD) Cash on Delivery
+                  Pay via QR Code
                 </label>
+                {paymentMethod === 'qr' && (
+                  <div className="mt-3">
+                    <div className="alert alert-info">
+                      We understand this payment method may seem unconventional. We are currently awaiting verification from Razorpay, 
+                      and online payment integration will be available from next month. We appreciate your patience and understanding.
+                    </div>
+                    <img 
+                      src="/api/placeholder/200/200" 
+                      alt="Payment QR Code"
+                      className="mb-3"
+                    />
+                    <div>
+                      <label className="d-block mb-2">Upload Payment Screenshot</label>
+                      <input type="file" accept="image/*" onChange={handleScreenshotUpload} />
+                    </div>
+                  </div>
+                )}
               </FormGroup>
-              <FormGroup>
-                <label>
-                 
-                 Online payment is not available at the moment
-                </label>
-              </FormGroup>
-              {paymentMethod === 'online' ? (
-                <button onClick={() => setShow(true)} className="buy__button w-100" disabled={loading}>
-                  {loading ? 'Placing Order...' : 'Proceed to Pay'}
-                </button>
-              ) : null}
-              {paymentMethod === 'cod' ? (
-                <button className="buy__button w-100" disabled={loading}>
-                  {loading ? 'Placing Order...' : 'Place Order'}
-                </button>
-              ) : null}
+
+              <button className="buy__button w-100" disabled={loading}>
+                {loading ? 'Placing Order...' : 'Place Order'}
+              </button>
             </Form>
           </Col>
 
@@ -226,8 +237,25 @@ const Checkout = () => {
                     const finalprice = item.price * item.quantity;
                     return (
                       <tr key={item.id}>
-                        <td className="text-center">{item.title} ({item.size}) {item.color && <><span>(</span><span style={{ marginLeft: "5px", backgroundColor: item.color, width: "10px", height: "10px",borderRadius:"20px", display: "inline-block" }}></span></>}
-          {item.color && <span> {item.color})</span>}</td>
+                        <td className="text-center">
+                          {item.title} ({item.size}) 
+                          {item.color && (
+                            <>
+                              <span>(</span>
+                              <span 
+                                style={{ 
+                                  marginLeft: "5px", 
+                                  backgroundColor: item.color, 
+                                  width: "10px", 
+                                  height: "10px",
+                                  borderRadius: "20px", 
+                                  display: "inline-block" 
+                                }}
+                              ></span>
+                              <span> {item.color})</span>
+                            </>
+                          )}
+                        </td>
                         <td className="text-center">Rs.{item.price}</td>
                         <td className="text-center">{item.quantity}</td>
                         <td className="text-center">Rs.{finalprice}</td>
@@ -247,9 +275,7 @@ const Checkout = () => {
             </div>
             <div className="divvvv">
               <p>Delivery charges</p>
-              <p className="ppp">
-                <s>Rs.{Math.floor(delfee)}</s>FREE
-              </p>
+              <p className="ppp">Rs.{DELIVERY_FEE}</p>
             </div>
             <div className="divvvv">
               <p>Additional discount</p>
@@ -257,7 +283,7 @@ const Checkout = () => {
             </div>
             <div className="divvvv line_below">
               <h3>Total Amount:</h3>
-              <h3 className="ppp"> Rs.{totalAmount}</h3>
+              <h3 className="ppp"> Rs.{finalAmount}</h3>
             </div>
           </Col>
         </Row>

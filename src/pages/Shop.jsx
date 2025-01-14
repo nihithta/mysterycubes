@@ -121,10 +121,13 @@ const Shop = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const subCategoryOptions = {};
+  const subCategoryOptions = {
+    boxes: ["Basic", "Premium", "Limited Edition"],
+    hoodies: ["Classic", "Premium", "Limited Edition"],
+    tees: ["Basic", "Graphic", "Premium"],
+    f1merch: ["Caps", "Teams", "Drivers"]
+  };
 
-
-  
 
   return (
     <Helmet title="Shop">
@@ -154,11 +157,11 @@ const Shop = () => {
 
             <div className="filter__widget">
                 <select value={selectedCategory} onChange={handleFilter}>
-                  <option value="">Filter By Category</option>
-                  <option value="boxes">Mystery Boxes</option>
-                  <option value="hoodies">Hoodies</option>
-                  <option value="tees">Printed Tees</option>
-                  <option value="f1merch">F1 Merch</option>
+                <option value="">Filter By Category</option>
+                <option value="boxes">Mystery Boxes</option>
+                <option value="hoodies">Hoodies</option>
+                <option value="tees">Printed Tees</option>
+                <option value="f1merch">F1 Merch</option>
                 </select>
               </div>
               <br></br>
@@ -175,7 +178,8 @@ const Shop = () => {
                   </select>
                 </div>
               )}
-            
+
+              <br></br>
               <div className="filter__widget">
                 <select value={selectedSort} onChange={handleSort}>
                   <option value="">Sort by</option>
