@@ -102,3 +102,16 @@
         margin-bottom: 40px;
     }
 }
+
+@media (max-width: 768px) {
+    .checkout__row {
+      display: flex;
+      flex-direction: row-reverse; 
+    }
+  
+    .order__summary {
+      margin-bottom: 20px;
+      border-bottom: 2px solid;
+    }
+  }
+  
