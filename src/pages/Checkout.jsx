@@ -11,26 +11,10 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { auth } from '../firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getMessaging, getToken, sendMessage } from 'firebase/messaging';
-import { doc, getDoc, setDoc} from 'firebase/firestore';
+import { doc, setDoc} from 'firebase/firestore';
 
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dx3cztk0k/image/upload';
 const UPLOAD_PRESET = 'payment_ssupload';
-
-const convertToBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    
-    fileReader.onload = () => {
-      resolve(fileReader.result);
-    };
-    
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
-  });
-};
 
 const Checkout = () => {
   const [name, setName] = useState('');
