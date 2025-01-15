@@ -16,37 +16,39 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(24);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [setIsLoading] = useState(true);
   const readCountRef = useRef(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  
+    const fetchProducts = async () => {
+      try {
+        readCountRef.current += 1;
+        console.log("Number of Firestore reads:", readCountRef.current);
+  
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const products = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProductsData(products);
+        setFilteredProducts(products);
+        setSearchTerm("");
+        setIsLoading(false);
+  
+        // Show "No Products Found" after 10 seconds
+        setTimeout(() => {
+          setIsLoading(true);
+        }, 10000);
+      } catch (error) {
+        console.log("Error fetching products: ", error);
+      }
+    };
+  
     fetchProducts();
   }, []);
-
-  const fetchProducts = async () => {
-    try {
-      readCountRef.current += 1;
-      console.log("Number of Firestore reads:", readCountRef.current);
-
-      const querySnapshot = await getDocs(collection(db, "products"));
-      const products = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setProductsData(products);
-      setFilteredProducts(products);
-      setSearchTerm("");
-      setIsLoading(false);
-
-      // Show "No Products Found" after 10 seconds
-      setTimeout(() => {
-        setIsLoading(true);
-      }, 10000);
-    } catch (error) {
-      console.log("Error fetching products: ", error);
-    }
-  };
+  
 
   const handleFilter = (e) => {
     const filterValue = e.target.value;

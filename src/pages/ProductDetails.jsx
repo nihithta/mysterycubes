@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
-import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../redux/slices/cartSlice";
 import { favActions } from "../redux/slices/favSlice";
@@ -17,7 +16,7 @@ import ProductsList from "../components/UI/ProductsList";
 import "../styles/product-details.css";
 import useGetData from "../custom-hooks/useGetData";
 import dellog from '../assets/images/dellog.png';
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -29,17 +28,17 @@ const ProductDetails = () => {
     window.scrollTo(0, 0);
   }, []);
   const limit = 10;
-  const { data: products, loading } = useGetData("products", limit);
-  const [isImageHovered, setIsImageHovered] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const { data: products} = useGetData("products", limit);
+  const [isImageHovered] = useState(false);
+  const [cursorPosition] = useState({ x: 0, y: 0 });
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [bestSalesProducts, setBestSalesProducts] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [tab, setTab] = useState("desc");
-  const reviewUser = useRef("");
-  const reviewMsg = useRef("");
+  //const reviewUser = useRef("");
+  //const reviewMsg = useRef("");
   const dispatch = useDispatch();
   const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState("");
@@ -107,7 +106,7 @@ const ProductDetails = () => {
     setBestSalesProducts(filteredBestSalesProducts);
   }, [products, product]);
 
-  const submitHandler = (e) => {
+  {/*const submitHandler = (e) => {
     e.preventDefault();
 
     const reviewUserName = reviewUser.current.value;
@@ -120,7 +119,7 @@ const ProductDetails = () => {
 
     console.log(reviewObj);
     toast.success("Review Submitted");
-  };
+  };*/}
 
   const addToCart = () => {
     if (availableSizes && availableSizes.length > 0 && !selectedSize) {

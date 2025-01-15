@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
-import { useSelector } from 'react-redux';
 import useAuth from '../custom-hooks/useAuth';
 import useGetData from '../custom-hooks/useGetData';
 import '../styles/myOrders.css';

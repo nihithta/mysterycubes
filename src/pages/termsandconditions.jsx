@@ -2,7 +2,6 @@ import CommonSection from "../components/UI/CommonSection";
 import Helmet from '../components/Helmet/Helmet';
 import '../styles/aboutus.css'
 import React, {useEffect} from 'react'
-import { Container, Row, Col } from 'reactstrap'
 import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {

@@ -253,9 +253,9 @@ const Checkout = () => {
                       and online payment integration will be available from next month. We appreciate your patience and understanding.
                     </div>
                     <img 
-                      src="/api/placeholder/200/200" 
+                      src="/qr.jpg" 
                       alt="Payment QR Code"
-                      className="mb-3"
+                      className="mb-3 qr-image"
                     />
                     <div>
                       <label className="d-block mb-2">Upload Payment Screenshot</label>

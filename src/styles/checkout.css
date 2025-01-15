@@ -103,6 +103,13 @@
     }
 }
 
+.qr-image {
+    width: 50%;
+    max-width: 200px;
+    height: auto; /* Maintains aspect ratio */
+  }
+  
+
 @media (max-width: 768px) {
     .checkout__row {
       display: flex;
