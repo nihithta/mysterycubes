@@ -4,7 +4,7 @@ import Layout from "./components/Layout/Layout";
 
 function App() {
   return <><Layout /><motion.a
-    href="https://chat.whatsapp.com/K01PSYeXboi7t832IeT4BE"
+    href="https://chat.whatsapp.com/E0dJSGeY7UKFpdDkIXVqSf"
     target="_blank"
     rel="noopener noreferrer"
     className="whatsapp-button"

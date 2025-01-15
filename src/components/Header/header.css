@@ -26,15 +26,29 @@
 
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
     column-gap: 8px;
 }
 
-.logo img{
-    width: 20rem;
-    height: 3rem;
+.logo img {
+    width: 100%;  /* Makes the image responsive to its container */
+    max-width: 20rem;  /* Sets maximum width */
+    height: auto;  /* Maintains aspect ratio */
+}
+
+/* Media queries for different screen sizes */
+@media screen and (max-width: 768px) {
+    .logo img {
+        max-width: 15rem;  /* Smaller on tablets */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo img {
+        max-width: 12rem;  /* Even smaller on phones */
+    }
 }
 
 .menu{
@@ -181,10 +195,6 @@
         font-size: 1.1rem !important;
     }
 
-    .logo img{
-        width: 4rem;
-        height: 4rem;
-    }
 
     .fav__icoon i , .cart__icon i  {
         font-size: 1.2rem !important;

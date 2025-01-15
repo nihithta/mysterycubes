@@ -94,7 +94,7 @@ const Header = () => {
       <Row className="header0">
         <div className="nav__wrapper">
           <div className="logo">
-            <Link to='/home'><img src={logo} alt="logo" /></Link>
+            <Link to='/home'><img src="/logo192.png" className="main-logo" alt="logo" /></Link>
           </div>
 
 
