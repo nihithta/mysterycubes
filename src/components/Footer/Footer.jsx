@@ -1,6 +1,5 @@
 import React,{useEffect} from "react";
 import './footer.css'
-import logo from "../../assets/images/eco-logo.PNG"
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import {Link} from "react-router-dom";
 
@@ -17,7 +16,7 @@ const Footer = () => {
       <Row>
         <Col lg='12' className="mb-4" md='6'>
           <div className="logo">
-            <img src={logo} alt="logo" />
+            <img src="/logo192.png" alt="logo" />
 
             
           </div>
