@@ -16,7 +16,7 @@ const Footer = () => {
       <Row>
         <Col lg='12' className="mb-4" md='6'>
           <div className="logo">
-            <img src="/logo192.png" alt="logo" />
+            <img src="/logo192.jpg" alt="logo" />
 
             
           </div>
@@ -31,15 +31,15 @@ const Footer = () => {
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/hoodies'>Hoodies</Link>
+                <Link to='/hoodies'>Hoodies(COMING SOON)</Link>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/tees'>Printed Tees</Link>
+                <Link to='/tees'>Printed Tees(COMING SOON)</Link>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0">
-                <Link to='/f1'>F1 Merch</Link>
+                <Link to='/f1'>F1 Merch(COMING SOON)</Link>
               </ListGroupItem>
             </ListGroup>
           </div>
@@ -85,7 +85,7 @@ const Footer = () => {
 
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
               <span><i class="ri-phone-line"></i></span>
-                <p>+91-7330962093, +91-9063803609</p>
+                <p>+91-7330962093, +91-6301336657</p>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
@@ -102,16 +102,16 @@ const Footer = () => {
         </Col>
         <Col className="text-center social" lg='12'>
         <p className="socialp">
-          <a href="https://www.instagram.com/aandm_fashion_retailor/?hl=en" target="_blank" rel="noopener noreferrer">
+          <a href="/home" target="_blank" rel="noopener noreferrer">
             <i className="ri-instagram-line"></i>
           </a>
-          <a href="https://www.instagram.com/aandm_fashion_retailor/?hl=en" target="_blank" rel="noopener noreferrer">
+          <a href="/home" target="_blank" rel="noopener noreferrer">
             <i className="ri-facebook-circle-fill"></i>
           </a>
-          <a href="https://in.pinterest.com/aandmfashion" target="_blank" rel="noopener noreferrer">
+          <a href="/home" target="_blank" rel="noopener noreferrer">
           <i class="ri-pinterest-fill"></i>
           </a>
-          <a href="https://wa.me/9346401198?text=I%20am%20interested%20in%20shopping%20with%20a%26m%20fashion" target="_blank" rel="noopener noreferrer">
+          <a href="https://chat.whatsapp.com/D3C7pdBVqK4LiGAN3P5E6K" target="_blank" rel="noopener noreferrer">
           <i class="ri-whatsapp-line"></i>
           </a>
         </p>
@@ -124,7 +124,6 @@ const Footer = () => {
         <Col lg='12'>
           <p className="footer__copyright">MysteryCubes <i class="ri-copyright-line"></i> 2025. All rights reserved. </p>
           <p className="footer__text mt-4">Mystery Cubes is the brainchild of a bunch of 21-year-old "chill guys" from Hyderabad who were bored and decided to do something cool. We’re all about fun, surprises, and good vibes—whether it’s our mystery boxes, hoodies, tees, or F1 merch. It’s like a treasure hunt but from the comfort of your couch. If you’re into chill, unique stuff and love a good surprise, Mystery Cubes is where it’s at.</p>
-
         </Col>
       </Row>
     </Container>

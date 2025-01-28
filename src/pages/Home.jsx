@@ -8,8 +8,6 @@ import Services from "../services/Services";
 import ProductsList from "../components/UI/ProductsList";
 import Clock from "../components/UI/Clock";
 import useGetData from "../custom-hooks/useGetData";
-import timer from "../assets/images/timer.png";
-
 
 const Home = () => {
   useEffect(() => {
@@ -73,11 +71,11 @@ const Home = () => {
                   <h2>Buy a Mystery Box</h2>
                 </div>
                 <div className="h22 mt-0">
-                  <h2 className="colchange">and maybe win an iphone?</h2>
+                  <h2 className="colchange">and maybe win an expensive gadget?</h2>
                 </div>
 
                 <h1 className="tal">
-                  Who knows what you might get? Join in on the suspense right now!
+                  Join in on the suspense right now! PHASE 1 boxes are now available till 21st February. 
                 </h1>
 
                 <motion.button
@@ -109,30 +107,28 @@ const Home = () => {
           
           
             <div className="feature-container">
-      <Link to={"/boxes"} className="feature-link">
-        <div className="fe-box">
-          <img src="/box.jpg" alt="" />
-          <h6>Mystery Boxes</h6>
-        </div>
-      </Link>
-      <Link to={"/hoodies"} className="feature-link">
-        <div className="fe-box">
-          <img src="/hoodie.jpg" alt="" />
-          <h6>Hoodies</h6>
-        </div>
-      </Link>
-      <Link to={"/tees"} className="feature-link">
-        <div className="fe-box">
-          <img src="/tee.jpeg" alt="" />
-          <h6>Tees</h6>
-        </div>
-      </Link>
-      <Link to={"/f1"} className="feature-link">
-        <div className="fe-box">
-          <img src="/f1.jpeg" alt="" />
-          <h6>F1 Merch</h6>
-        </div>
-      </Link>
+            <Link to={"/shop"} className="feature-link">
+              <div className="fe-box">
+                <img src="/box.jpg" alt="" />
+                <h6>Mystery Boxes</h6>
+              </div>
+            </Link>
+
+            <div className="fe-box coming-soon">
+              <img src="/hoodie.jpg" alt="" />
+              <h6>Hoodies</h6>
+            </div>
+
+            <div className="fe-box coming-soon">
+              <img src="/tee.jpeg" alt="" />
+              <h6>Tees</h6>
+            </div>
+
+            <div className="fe-box coming-soon">
+              <img src="/f1.jpeg" alt="" />
+              <h6>F1 Merch</h6>
+            </div>
+
     </div>
           
         </Container>
@@ -194,7 +190,7 @@ const Home = () => {
               <div className="clock_top-content">
                 <h3 className="text-black fs-6 mb-2">Inaugural Offer</h3>
                 <h3 className="text-black fs-3 mb-2 per">
-                  80% off on Mystery Boxes!
+                  70% off on Mystery Boxes!
                 </h3>
               </div>
               <Clock />

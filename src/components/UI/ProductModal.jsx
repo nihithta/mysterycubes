@@ -2,8 +2,6 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../../styles/product-card.css';
-import { toast } from 'react-toastify';
-
 
 
 const ProductModal = ({ isOpen, closeModal, availableSizes, availableColors, onSizeSelect, onColorSelect, selectedSize, selectedColor, addToCart, imgUrl, title, id }) => {

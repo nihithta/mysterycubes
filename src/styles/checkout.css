@@ -83,7 +83,9 @@
     object-fit: contain;
 }
 
-
+.coupon_btn {
+    font-size: 15px;
+}
 
 @media only screen and (max-width:425px){
     .table_total{

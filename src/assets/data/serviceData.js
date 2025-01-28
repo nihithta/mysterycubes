@@ -1,11 +1,5 @@
 const serviceData = [
   {
-    icon: "ri-truck-line",
-    title: "Free Shipping",
-    subtitle: "across India on all products",
-    bg: "#fdefe6",
-  },
-  {
     icon: "ri-refresh-line",
     title: "Easy Returns",
     subtitle: "returns are quick and easy",

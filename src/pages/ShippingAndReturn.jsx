@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
         <p>Mystery boxes are curated with care and excitement, and we cannot entertain any requests for returns, refunds, or exchanges unless there is a rare issue with shipping damage. By purchasing a mystery box, you agree to the surprise nature of the product.</p>
         <p>If you have any concerns or questions regarding our Shipping and Return Policy, please contact us at mysterycubes.in@gmail.com. We’re here to assist you!</p>
 
-        <p className="pp">Last Updated: 06-01-2025</p>
+        <p className="pp">Last Updated: 22-01-2025</p>
       </section>
     </Helmet>
   );

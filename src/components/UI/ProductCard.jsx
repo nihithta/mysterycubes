@@ -16,7 +16,7 @@ const ProductCard = ({ item }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemOff = (price) => {
-    const discountedPrice = Math.floor(2 * price);
+    const discountedPrice = Math.floor(5 * price);
     return discountedPrice;
   };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Col } from 'reactstrap';
 import '../../styles/productLoading.css'
 
 const productLoading = () => {

@@ -27,6 +27,8 @@ const Checkout = () => {
   const [phone, setPhone] = useState('');
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
@@ -42,7 +44,56 @@ const Checkout = () => {
   }, []);
 
   const taxes = Math.floor(totalAmount * 0.12 - totalAmount * 0.08);
-  const finalAmount = totalAmount + DELIVERY_FEE;
+  
+  const calculateFreeBoxes = (items) => {
+    let totalBoxes = 0;
+    let freeBoxesInfo = [];
+    
+    // Count total boxes
+    items.forEach(item => {
+      totalBoxes += item.quantity;
+    });
+    
+    // Calculate free boxes (2 free for every 3 purchased)
+    const setsOfThree = Math.floor(totalBoxes / 3);
+    const totalFreeBoxes = setsOfThree * 2;
+    
+    // Get the most expensive items for reference (we'll give free boxes of these)
+    const sortedItems = [...items].sort((a, b) => b.price - a.price);
+    
+    if (totalFreeBoxes > 0 && sortedItems.length > 0) {
+      freeBoxesInfo = Array(totalFreeBoxes).fill({
+        ...sortedItems[0],
+        isFree: true,
+        originalPrice: sortedItems[0].price,
+        price: 0,
+        quantity: 1
+      });
+    }
+    
+    return freeBoxesInfo;
+  };
+
+
+  const calculateFinalAmount = () => {
+    let finalAmount = totalAmount + DELIVERY_FEE;
+    if (appliedCoupon) {
+      const couponDiscount = Math.min(finalAmount * 0.2, 50);
+      finalAmount -= couponDiscount;
+    }
+    return finalAmount;
+  };
+
+  const handleCouponApply = () => {
+    const validCoupons = ['NIHITH20', 'AJITH20', 'KARTHIKEYA20'];
+    if (validCoupons.includes(couponCode.toUpperCase())) {
+      setAppliedCoupon(true);
+      toast.success('Coupon applied successfully!');
+    } else {
+      toast.error('Invalid coupon code');
+      setAppliedCoupon(false);
+    }
+  };
 
   const handleScreenshotUpload = (e) => {
     const file = e.target.files[0];
@@ -93,7 +144,7 @@ const Checkout = () => {
         zipCode,
         paymentMethod,
         items: cartItems,
-        totalAmount: finalAmount,
+        totalAmount: calculateFinalAmount(),
         orderDate: new Date().toLocaleString(),
         userId,
         orderStatus: 'pending',
@@ -102,6 +153,7 @@ const Checkout = () => {
         deliveryFee: DELIVERY_FEE,
         taxes,
         subtotal: totalAmount,
+        appliedCoupon: appliedCoupon ? couponCode : null,
         createdAt: new Date(),
       };
 
@@ -124,6 +176,8 @@ const Checkout = () => {
     }
   };
   
+  const finalAmount = calculateFinalAmount();
+  const freeBoxes = calculateFreeBoxes(cartItems);
 
   return (
     <section>
@@ -174,6 +228,8 @@ const Checkout = () => {
                   </tbody>
                 </table>
               </div>
+
+              
               <div className="divvvv">
                 <p>Total Amount:</p>
                 <p className="ppp"> Rs.{totalAmount}</p>
@@ -189,6 +245,10 @@ const Checkout = () => {
               <div className="divvvv">
                 <p>Additional discount</p>
                 <p className="ppp"> - Rs.{taxes}</p>
+              </div>
+              <div className="divvvv">
+                <p>Coupon Discount</p>
+                <p className="ppp"> {appliedCoupon ? `- Rs.${Math.min(totalAmount * 0.2, 50)}` : 'Rs.0'}</p>
               </div>
               <div className="divvvv line_below">
                 <h3>Total Amount:</h3>
@@ -234,6 +294,25 @@ const Checkout = () => {
               <FormGroup className="form__group">
                 <label>Zip Code</label>
                 <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+              </FormGroup>
+
+              <FormGroup className="form__group">
+                <label>Coupon Code</label>
+                <div className="d-flex">
+                  <input 
+                    type="text" 
+                    value={couponCode} 
+                    onChange={(e) => setCouponCode(e.target.value)} 
+                    placeholder="Enter coupon code" 
+                  />
+                  <button 
+                    type="button" 
+                    className="coupon_btn" 
+                    onClick={handleCouponApply}
+                  >
+                    Apply
+                  </button>
+                </div>
               </FormGroup>
 
               <h4 className="mb-3">Choose Payment Method</h4>

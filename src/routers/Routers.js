@@ -17,13 +17,6 @@ import ShippingAndReturn from '../pages/ShippingAndReturn';
 import Fav from '../pages/Fav';
 import OrderPlaced from '../pages/orderPlaced';
 import Payment from '../pages/Payment';
-import Saree from '../pages/Saree';
-import Gown from '../pages/Gown';
-import Kurti from '../pages/Kurti';
-import Lehanga from '../pages/Lehanga';
-import Stitched from '../pages/Stitched';
-import Unstitched from '../pages/Unstitched';
-import Sharara from '../pages/Sharara'
 import MyOrders from '../pages/myOrders';
 import OrderDetails from '../pages/OrderDetails';
 import NotFound from '../pages/NotFound';
@@ -54,13 +47,6 @@ const Routers = () => {
       <Route path="shippingandreturn" element={<ShippingAndReturn />} />
       <Route path="orderplaced" element={<OrderPlaced />} />
       <Route path="payment" element={<Payment />} />
-      <Route path="saree" element={<Saree />} />
-      <Route path="gown" element={<Gown />} />
-      <Route path="kurti" element={<Kurti />} />
-      <Route path="lehanga" element={<Lehanga />} />
-      <Route path="stitched" element={<Stitched />} />
-      <Route path="unstitched" element={<Unstitched />} />
-      <Route path="sharara" element={<Sharara />} />
 
       <Route path='insta/*' element={<Navigate to="https://www.instagram.com/aandm_fashion_retailor/?hl=en" target="_blank" replace />} />
 

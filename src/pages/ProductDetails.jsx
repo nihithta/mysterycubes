@@ -335,7 +335,7 @@ const ProductDetails = () => {
                 <div className="d-flex align-items-center gap-5">
                 <div className="price0">
   <span>
-    <strike>Rs.{!isNaN(price) ? Math.floor(2 * parseFloat(price)) : "Invalid Price"}</strike>
+    <strike>Rs.{!isNaN(price) ? Math.floor(5 * parseFloat(price)) : "Invalid Price"}</strike>
   </span>
   <span className="product__price">Rs.{price}</span>
 </div>
